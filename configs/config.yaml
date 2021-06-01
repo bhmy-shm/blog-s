@@ -1,0 +1,63 @@
+Server:
+  RunMode: debug
+  HttpPort: 8000
+  ReadTimeout: 60
+  WriteTimeout: 60
+App:
+  DefaultPageSize: 10
+  MaxPageSize: 100
+  DefaultContextTimeout: 60
+  LogSavePath: storage/logs
+  AccessLogSavePath: storage/access
+  LogFileName: app
+  LogFileExt: .log
+  UploadSavePath: E:\Goweb\goweb\storage\uploads\
+  UploadServerUrl: http://www.bhmy.top:8000/static
+  UploadFileAllSize: 10 #MB
+  UploadImageMaxSize: 5 # MB
+  UploadImageAllowExts:
+    - .jpg
+    - .jpeg
+    - .png
+
+Database:
+  DBType: mysql
+  UserName: shm
+  Password: 123.com
+  Host: 192.168.168.7:3306
+  DBName: goweb
+  TablePrefix: blog_
+  Charset: utf8
+  ParseTime: True
+  MaxIdleConns: 10
+  MaxOpenConns: 30
+RabbitMQ:
+  Name: shm
+  Pass: 123.com
+  Host: 192.168.168.7
+  Port: 5672
+  Exchange: UserRegisterExchange
+  Queue: UserRegister
+  Router: UserReg
+JWT:
+  Secret: shm19990131 #密钥
+  Issuer: blog-service #签发者
+  Expire: 7200 #超时时间
+  Topic: logintoken
+Redis:
+  Addr: 192.168.168.7
+  Port: 6379
+  Password:
+  DB: 0
+  PoolSize: 15  #连接池数量
+  MinIdleConns: 10  #最小连接数
+  DialTimeout: 5  #连接建立超时时间
+Email:
+  Host: smtp.163.com
+  Port: 465
+  UserName: shm1136265636@163.com #发件人邮箱账号
+  PassWord: XINHMUUWGJXWGVIY  #发件人邮箱密码
+  IsSSL: true
+  From: shm1136265636@163.com #发件人邮箱
+  To:
+    - 1136265636@qq.com #收件人邮箱
