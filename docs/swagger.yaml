@@ -1,0 +1,204 @@
+definitions:
+  JWT.AuthJwt:
+    properties:
+      app_key:
+        type: string
+      app_secret:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      updated_at:
+        type: string
+      user_phone:
+        type: string
+    type: object
+  UserModel.User:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      state:
+        type: integer
+      updated_at:
+        type: string
+      user_email:
+        type: string
+      user_pass:
+        type: string
+      user_phone:
+        type: string
+    type: object
+  errcode.Error:
+    type: object
+  service.AuthRequest:
+    properties:
+      auth:
+        type: string
+    required:
+    - auth
+    type: object
+info:
+  contact:
+    name: github地址
+    url: https://github.com/
+  description: Go-web 孙海铭的入门项目
+  termsOfService: http://www.bhmy.top
+  title: 博客系统
+  version: "1.0"
+paths:
+  /login/getToken:
+    post:
+      parameters:
+      - description: 用户账户
+        in: body
+        maxLength: 11
+        name: user_phone
+        required: true
+        schema:
+          type: string
+      - description: 用户密码
+        in: body
+        minLength: 6
+        name: user_pass
+        required: true
+        schema:
+          type: string
+      - description: token密钥键
+        in: body
+        name: app_key
+        required: true
+        schema:
+          type: string
+      - description: token密钥值
+        in: body
+        name: app_secret
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 申请token成功
+          schema:
+            $ref: '#/definitions/JWT.AuthJwt'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 申请获取token编码
+  /login/users:
+    post:
+      parameters:
+      - description: 用户账户
+        in: body
+        maxLength: 11
+        name: user_phone
+        required: true
+        schema:
+          type: string
+      - description: 用户密码
+        in: body
+        minLength: 6
+        name: user_pass
+        required: true
+        schema:
+          type: string
+      - description: token编码
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 登录成功
+          schema:
+            $ref: '#/definitions/UserModel.User'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 用户携带token编码进行登录
+  /register/auth:
+    post:
+      parameters:
+      - description: 用户名
+        in: body
+        maxLength: 11
+        name: user_phone
+        required: true
+        schema:
+          type: string
+      - description: 密码
+        in: body
+        minLength: 6
+        name: user_pass
+        required: true
+        schema:
+          type: string
+      - description: 邮箱号
+        in: body
+        name: user_email
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/UserModel.User'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 注册新的用户
+  /register/authentication:
+    post:
+      parameters:
+      - description: 手机验证码
+        in: body
+        maxLength: 6
+        name: auth
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 验证码输入正确
+          schema:
+            $ref: '#/definitions/service.AuthRequest'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 确定手机验证码
+swagger: "2.0"
