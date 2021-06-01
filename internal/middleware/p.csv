@@ -1,0 +1,16 @@
+p, member, /blog/tags, POST
+p, member, /blog/articles, POST
+
+p, admin, /blog/tags, POST
+p, admin, /blog/articles, POST
+p, admin, /upload/file, POST
+p, admin, /blog/tags, PUT
+p, admin, /blog/articles, PUT
+p, admin, /blog/tags, DELETE
+p, admin, /blog/articles, DELETE
+
+g, admin, member
+
+
+g, shm, admin
+g, tourist, member
